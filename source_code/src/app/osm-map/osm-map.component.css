@@ -1,0 +1,43 @@
+#map{
+    height: 400px;
+    width: 100%;
+}
+
+#divGContainer {
+    margin-top: 15px;
+}
+
+#lblGravity {
+    font-size: 50px;
+}
+
+#lblGUnit {
+    font-size: small;
+}
+
+.topCircle {
+    height: 90px;
+    width: 180px;
+    background:#343a40!important;
+    border-top-left-radius: 180px;
+    border-top-right-radius: 180px;
+    margin: auto;
+    position: absolute;
+    z-index: 400;
+    text-align: center;
+}
+
+.mapbox {
+    position: relative;
+}
+
+.mapbox .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.mapbox .overlay .topCircle {
+    pointer-events: initial;
+}
