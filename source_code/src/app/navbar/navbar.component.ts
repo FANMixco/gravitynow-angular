@@ -142,10 +142,15 @@ export class NavbarComponent implements OnInit {
       // @ts-ignore
       this.wResult = `Your weight in ${this.celestialObjects[this.selectedValueCO2].name} is greater check it out! ${newWeight} ${this.wUnits[this.selectedWUnits].name}`;
     }
-    else {
+    else if (newWeight == initialWeight) {
       this.messageComparisonStyle = "text-primary";
 
       this.wResult = "Same weight";
+    }
+    else {
+      this.messageComparisonStyle = "text-primary";
+
+      this.wResult = "";
     }
   }
 
