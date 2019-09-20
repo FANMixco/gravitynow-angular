@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-primary-title">Calculator</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label for="txtAltitude">Altitude:</label>
+            <input type="number" id="txtAltitude" class="form-control" placeholder="Enter Altitude" (keyup)="onKeyAlt($event)">
+        </div>
+        <div class="form-group">
+            <label for="txtLatitude">Latitude:</label>
+            <input type="number" id="txtLatitude" class="form-control" placeholder="Enter Latitude" (keyup)="onKeyLat($event)">
+        </div>
+        <div class="form-group">
+            <label for="cmbUnits">Units:</label>
+            <select [(ngModel)]="selectedGUnits" name="selectedGUnits" id="cmbUnits" class="form-control" (change)="onGUChange($event.target.value)">
+                <option *ngFor="let option of gUnits" [value]="option.value">{{option.name}}</option>
+            </select>
+        </div>
+        <div class="form-group" class="centered">
+            <p [className]="messageStyle">{{gResult}}</p>
+        </div>
+    </form>
+</div>

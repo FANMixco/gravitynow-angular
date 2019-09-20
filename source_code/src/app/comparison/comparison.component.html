@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-primary-title">Comparison</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-8">
+                    <label for="txtWeight">Your weight on the Earth:</label>
+                    <input min="1" type="number" id="txtWeight" class="form-control" placeholder="Weight" (keyup)="onKeyWeight($event)">
+                </div>
+                <div class="col-4">
+                    <label for="cmbUnitsWeight">Units:</label>
+                    <select [(ngModel)]="selectedWUnits" name="selectedWUnits" id="cmbUnitsWeight" class="form-control" (change)="onWChange($event.target.value)">
+                        <option *ngFor="let option of wUnits" [value]="option.value">{{option.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cmbGUnits">Gravity units:</label>
+            <select [(ngModel)]="selectedGUnits" name="selectedGUnits" id="cmbGUnits" class="form-control" (change)="onGUChange($event.target.value)">
+                <option *ngFor="let option of gUnits" [value]="option.value">{{option.name}}</option>
+            </select>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="cmbFirstCelestialObject">1<sup>st</sup> celestial Object:</label>
+                <select [(ngModel)]="selectedValueCO1" name="selectedValueCO1" id="cmbFirstCelestialObject" class="form-control" (change)="onCOChange1($event.target.value)">
+                    <option *ngFor="let option of celestialObjects" [value]="option.value">{{option.name}}</option>
+                </select>
+                <div class="centered">
+                    <img class="imgCelestialObject" [src]="celestialImgFirst">
+                    <p class="caption">{{celestialStrFirstGravity}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <label for="cmbSecondCelestialObject">2<sup>nd</sup> celestial Object:</label>
+                <select [(ngModel)]="selectedValueCO2" name="selectedValueCO2" id="cmbSecondCelestialObject" class="form-control" (change)="onCOChange2($event.target.value)">
+                    <option *ngFor="let option of celestialObjects" [value]="option.value">{{option.name}}</option>
+                </select>
+                <div class="centered">
+                    <img class="imgCelestialObject" [src]="celestialImgSecond">
+                    <p class="caption">{{celestialStrSecondGravity}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" class="centered">
+            <p [className]="messageComparisonStyle">{{wResult}}</p>
+        </div>
+    </form>
+</div>

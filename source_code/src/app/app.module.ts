@@ -11,6 +11,10 @@ import { FooterComponent } from './footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { OsmMessageServiceService } from './osm-message-service.service';
+import { AboutComponent } from './about/about.component';
+import { CalculatorComponent } from './calculator/calculator.component';
+import { ComparisonComponent } from './comparison/comparison.component';
+import { HelpComponent } from './help/help.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { OsmMessageServiceService } from './osm-message-service.service';
     OsmMapComponent,
     NavbarComponent,
     NavbarSearchComponent,
-    FooterComponent
+    FooterComponent,
+    AboutComponent,
+    CalculatorComponent,
+    ComparisonComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +34,12 @@ import { OsmMessageServiceService } from './osm-message-service.service';
     NgbModule,
     FormsModule,
     HttpClientModule
+  ],
+  entryComponents: [
+    AboutComponent,
+    CalculatorComponent,
+    ComparisonComponent,
+    HelpComponent
   ],
   providers: [OsmMessageServiceService],
   bootstrap: [AppComponent]

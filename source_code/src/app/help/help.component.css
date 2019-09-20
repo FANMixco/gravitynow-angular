@@ -1,0 +1,27 @@
+.centered {
+    text-align: center;
+}
+
+.caption {
+    font-size: small;
+}
+
+.fontItalic {
+    font-style: italic;
+}
+
+.horizontalMax {
+    max-width: 100%;
+}
+
+.imgApple {
+    max-width: 256px;
+}
+
+.txtRight {
+    text-align: right;
+}
+
+.imgRotation {
+    max-width: 75%;
+}

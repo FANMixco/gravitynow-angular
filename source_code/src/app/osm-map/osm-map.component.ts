@@ -46,7 +46,7 @@ export class OsmMapComponent implements OnInit {
         html: `<img style="height:32px;width:23.5px" class="my-div-image" src="assets/Map_pin_icon.svg"/>
                   <span class="my-div-span">${new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation).toFixed(4)}m/s²</span>`
       });
-      new L.marker(loc, { icon: markerIcon }).bindTooltip(`latitude: ${result.elevations[0].lat.toFixed(2)}, altitude: ${result.elevations[0].elevation}`).addTo(OsmMapComponent.map);
+      new L.marker(loc, { icon: markerIcon }).bindTooltip(`latitude: ${result.elevations[0].lat.toFixed(2)}°, altitude: ${result.elevations[0].elevation}m`).addTo(OsmMapComponent.map);
     });
   }
 
@@ -95,6 +95,7 @@ export class OsmMapComponent implements OnInit {
       new Gravity().getAltitude(position.lat,position.lng).then(function(result){
         return new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation).toFixed(2);
       }).then(gResult =>{
+        this.gravityResult = gResult;
         document.getElementById("lblGravity").innerHTML = `${gResult}`;
         document.getElementById("lblGUnit").innerHTML = `m/s²`;
      });
@@ -104,6 +105,18 @@ export class OsmMapComponent implements OnInit {
 
     OsmMapComponent.map.on('click', e => this.setNewMarker([e.latlng.lat, e.latlng.lng]));
 
+    OsmMapComponent.map.on('locationfound', this.onLocationFound);
     this.resizeMap();
+  }
+
+  onLocationFound(e) {
+    new Gravity().getAltitude(parseFloat(e.latlng.lat),parseFloat(e.latlng.lng)).then(function(result){
+      let markerIcon = new L.DivIcon({
+        className: 'my-div-icon',
+        html: `<img style="height:32px;width:23.5px" class="my-div-image" src="assets/Map_pin_icon.svg"/>
+                  <span class="my-div-span">${new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation).toFixed(4)}m/s²</span>`
+      });
+      new L.marker([e.latlng.lat, e.latlng.lng], { icon: markerIcon }).bindTooltip(`latitude: ${result.elevations[0].lat.toFixed(2)}°, altitude: ${result.elevations[0].elevation}m`).addTo(OsmMapComponent.map);
+    });
   }
 }
