@@ -29,6 +29,7 @@ export class CalculatorComponent implements OnInit {
   calcGravity() {
     this.messageStyle ="text-danger";
     if (this.latitude == undefined || this.altitude == undefined) {
+      this.gResult = "";
       return;
     }
     

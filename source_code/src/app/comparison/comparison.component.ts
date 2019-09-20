@@ -90,6 +90,7 @@ export class ComparisonComponent implements OnInit {
 
   calcWeight(){
     if (this.weight == undefined) {
+      this.wResult = "";
       return;
     }
 
