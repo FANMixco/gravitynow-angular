@@ -28,7 +28,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <label for="cmbFirstCelestialObject">1<sup>st</sup> celestial Object:</label>
+                <label for="cmbFirstCelestialObject">1<sup>st</sup> celestial object:</label>
                 <select [(ngModel)]="selectedValueCO1" name="selectedValueCO1" id="cmbFirstCelestialObject" class="form-control" (change)="onCOChange1($event.target.value)">
                     <option *ngFor="let option of celestialObjects" [value]="option.value">{{option.name}}</option>
                 </select>
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="col">
-                <label for="cmbSecondCelestialObject">2<sup>nd</sup> celestial Object:</label>
+                <label for="cmbSecondCelestialObject">2<sup>nd</sup> celestial object:</label>
                 <select [(ngModel)]="selectedValueCO2" name="selectedValueCO2" id="cmbSecondCelestialObject" class="form-control" (change)="onCOChange2($event.target.value)">
                     <option *ngFor="let option of celestialObjects" [value]="option.value">{{option.name}}</option>
                 </select>

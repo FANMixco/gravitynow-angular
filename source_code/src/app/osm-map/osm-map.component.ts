@@ -32,8 +32,8 @@ export class OsmMapComponent implements OnInit {
 
   resizeMap() {
     let mapHeight = document.body.clientHeight - (document.getElementById("titleBar").clientHeight + document.getElementById("footer").clientHeight);
-    document.getElementById("gravityCircle").style.marginTop = `${mapHeight - 90}px`;
-    document.getElementById("gravityCircle").style.marginLeft = `${(document.body.clientWidth / 2) - 90}px`;
+    document.getElementById("gravityCircle").style.marginTop = `${mapHeight - 89}px`;
+    document.getElementById("gravityCircle").style.marginLeft = `${(document.body.clientWidth / 2) - 89}px`;
     document.getElementById("map").style.height = `${mapHeight}px`;
   }
 

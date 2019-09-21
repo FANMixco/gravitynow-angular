@@ -15,10 +15,15 @@ import { ComparisonComponent } from '../comparison/comparison.component';
 export class NavbarComponent implements OnInit {
 
   @Input() currentLocation: any;
+  navbarOpen = false;
 
   constructor(private service: OsmMessageServiceService, private modalService: NgbModal){
   }
 
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
+  
   openCalc() {
     const calcConst = this.modalService.open(CalculatorComponent, { centered: true, scrollable: true });
     calcConst.componentInstance.latitude = undefined;

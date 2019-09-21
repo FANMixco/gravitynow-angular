@@ -1,7 +1,10 @@
 <nav id="titleBar" class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a class="navbar-brand" href="#">Gravity Now!</a>
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="collapse navbar-collapse" id="navb">
+    <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" (click)="openCalc()">Calculator</a>
