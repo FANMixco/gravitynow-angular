@@ -15,6 +15,7 @@ import { AboutComponent } from './about/about.component';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { ComparisonComponent } from './comparison/comparison.component';
 import { HelpComponent } from './help/help.component';
+import { ToastComponent } from './toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HelpComponent } from './help/help.component';
     AboutComponent,
     CalculatorComponent,
     ComparisonComponent,
-    HelpComponent
+    HelpComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
