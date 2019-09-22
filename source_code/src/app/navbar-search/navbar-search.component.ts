@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable, Input, Output, EventEmitter } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, tap, switchMap } from 'rxjs/operators';
 
@@ -43,9 +43,6 @@ export class NavbarSearchComponent implements OnInit {
   constructor(private _service: OSMService) {}
 
   selectedItem(item){
-    //this.clickedItem = currentSearch.filter(x=>x.display_name == item.item)[0];
-    //console.log(item);
-    
     this.onItemSelected.emit(currentSearch.filter(x=>x.display_name == item.item)[0]);
   }
   
@@ -66,5 +63,4 @@ export class NavbarSearchComponent implements OnInit {
     )
   ngOnInit() {
   }
-
 }
