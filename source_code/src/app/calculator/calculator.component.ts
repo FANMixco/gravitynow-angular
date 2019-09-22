@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { WrongValues, Gravity } from '../gravity';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-calculator',
@@ -9,57 +10,57 @@ import { WrongValues, Gravity } from '../gravity';
 })
 export class CalculatorComponent implements OnInit {
 
-  @Input() latitude:number;
-  @Input() altitude:number;
-  @Input() gResult:string = "";
-  @Input() gUnits : Array<Object>;
-
-  public selectedGUnits:number=0;
   messageStyle:string="text-primary";
+  gResult:string = "";
+  calcForm: FormGroup;
+  gUnits : Array<Object>;
 
-  onKeyLat(event: any) {
-    this.latitude = event.target.value;
-    this.calcGravity();
-  }
-
-  onGUChange(value) {
-    this.calcGravity();
-  }
-
-  calcGravity() {
+  calcGravity(latitude:number, altitude:number, selectedGUnits:number) {
     this.messageStyle ="text-danger";
-    if (this.latitude == undefined || this.altitude == undefined) {
-      this.gResult = "";
-      return;
-    }
     
     let g = new Gravity();
 
-    let gravity = parseFloat(g.GetGravity(this.latitude, this.altitude, false, this.selectedGUnits == 0 ? false : true).toFixed(5));
-    switch (gravity)
-    {
+    let gravity = parseFloat(g.GetGravity(latitude, altitude, false, selectedGUnits == 0 ? false : true).toFixed(5));
+    switch (gravity) {
       case WrongValues.Latitude:
         this.gResult = `Incorrect latitude, it must be between -90° and +90°`;
         break;
       case WrongValues.Everest:
-        this.gResult = "Altitude cannot be greater than the Mount Everest: " + (this.selectedGUnits == 1 ? g.ChangeToMetres(g.EVEREST).toFixed(0) + "ft": g.EVEREST + "m");
+        this.gResult = "Altitude cannot be greater than the Mount Everest: " + (selectedGUnits == 1 ? g.ChangeToMetres(g.EVEREST).toFixed(0) + "ft": g.EVEREST + "m");
         break;
       case WrongValues.DeadSea:
-        this.gResult = "Altitude cannot below the Dead Sea: " + (this.selectedGUnits == 1 ? g.ChangeToMetres(g.DEAD_SEA).toFixed(0) + "ft": g.DEAD_SEA + "m");
+        this.gResult = "Altitude cannot below the Dead Sea: " + (selectedGUnits == 1 ? g.ChangeToMetres(g.DEAD_SEA).toFixed(0) + "ft": g.DEAD_SEA + "m");
         break;
       default:
-        this.gResult = gravity + (this.selectedGUnits == 1 ? "ft/s²":"m/s²");
+        this.gResult = gravity + (selectedGUnits == 1 ? " ft/s²" : " m/s²");
         this.messageStyle ="text-primary";
     }
   }
 
-  onKeyAlt(event: any) {
-    this.altitude = event.target.value;
+  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal) { }
+
+  onChanges(): void {
+    this.calcForm.valueChanges.subscribe(val => {
+      if (val.latitude == '' || val.altitude == '') {
+        this.gResult = "";
+      }
+      else {
+          this.calcGravity(parseFloat(val.latitude), parseFloat(val.altitude), parseInt(val.gUnits));
+      }
+    });
   }
 
-  constructor(public activeModal: NgbActiveModal) { }
-
   ngOnInit() {
+    this.calcForm = this.formBuilder.group({
+      latitude: '',
+      altitude: '',
+      gUnits: 0
+    });
+
+    this.calcForm.controls['gUnits'].setValue(0, {onlySelf: true});
+
+    this.onChanges();
+
     this.gUnits = 
     [
       {

@@ -1,6 +1,6 @@
 <div class="mapbox">
-    <div id="map" class="row-fluid some"></div>
-    <div id="gravityCircle" class="topCircle row-fluid overlay text-white-50">
+    <div id="map" [style.height.px]="mapHeight" class="row-fluid some"></div>
+    <div [style.marginTop.px]="imgMarginTop" [style.marginLeft.px]="imgMarginLeft" class="topCircle row-fluid overlay text-white-50">
         <div id="divGContainer">
             <label id="lblGravity">{{gravityResult}}</label>
             <label id="lblGUnit"></label>

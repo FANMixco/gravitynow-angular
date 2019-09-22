@@ -18,8 +18,7 @@ export class Gravity {
 
   public GetGravity(lat : number, alt: number, isMap: boolean = true, isImperial:boolean =false):number {
     if (!isMap) {
-      if (lat < -90 || lat > 90)
-      {
+      if (lat < -90 || lat > 90) {
         return WrongValues.Latitude;
       }
   
@@ -30,14 +29,11 @@ export class Gravity {
         tmpEverest = this.ChangeToFeet(tmpEverest);
         tmpDeadSea = this.ChangeToFeet(tmpDeadSea)
       }
-
-      if (alt > tmpEverest)
-      {
+      
+      if (alt > tmpEverest) {
         return WrongValues.Everest;
       }
-  
-      if (alt < tmpDeadSea)
-      {
+      else if (alt < tmpDeadSea) {
         return WrongValues.DeadSea;
       }
     }
@@ -48,20 +44,17 @@ export class Gravity {
 
     let g = IGF + FAC;
 
-    if (g < 9.7639 || g > 9.8337)
-    {
+    if (g < 9.7639 || g > 9.8337) {
         g = 9.798;
     }
     return isImperial ? this.ChangeToFeet(g) : g;
   }
 
-  public ChangeToMetres(value : number) : number
-  {
+  public ChangeToMetres(value : number) : number {
     return value / this.FOOT;
   }
 
-  public ChangeToFeet(value : number) : number
-  {
+  public ChangeToFeet(value : number) : number {
     return value * this.FOOT;
   }
 }

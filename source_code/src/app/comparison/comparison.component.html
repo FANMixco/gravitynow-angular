@@ -5,16 +5,16 @@
     </button>
 </div>
 <div class="modal-body">
-    <form>
+    <form [formGroup]="comparisonForm">
         <div class="form-group">
             <div class="row">
                 <div class="col-8">
-                    <label for="txtWeight">Your weight on the Earth:</label>
-                    <input min="1" type="number" id="txtWeight" class="form-control" placeholder="Weight" (keyup)="onKeyWeight($event)">
+                    <label for="txtWeight">Your weight on <b>the Earth</b>:</label>
+                    <input min="1" type="number" class="form-control" placeholder="Weight" formControlName="weight">
                 </div>
                 <div class="col-4">
                     <label for="cmbUnitsWeight">Units:</label>
-                    <select [(ngModel)]="selectedWUnits" name="selectedWUnits" id="cmbUnitsWeight" class="form-control" (change)="onWChange($event.target.value)">
+                    <select class="form-control" formControlName="selectedWUnits">
                         <option *ngFor="let option of wUnits" [value]="option.value">{{option.name}}</option>
                     </select>
                 </div>
@@ -22,14 +22,14 @@
         </div>
         <div class="form-group">
             <label for="cmbGUnits">Gravity units:</label>
-            <select [(ngModel)]="selectedGUnits" name="selectedGUnits" id="cmbGUnits" class="form-control" (change)="onGUChange($event.target.value)">
+            <select class="form-control" formControlName="selectedGUnits">
                 <option *ngFor="let option of gUnits" [value]="option.value">{{option.name}}</option>
             </select>
         </div>
         <div class="row">
             <div class="col">
                 <label for="cmbFirstCelestialObject">1<sup>st</sup> celestial object:</label>
-                <select [(ngModel)]="selectedValueCO1" name="selectedValueCO1" id="cmbFirstCelestialObject" class="form-control" (change)="onCOChange1($event.target.value)">
+                <select class="form-control" formControlName="selectedValueCO1">
                     <option *ngFor="let option of celestialObjects" [value]="option.value">{{option.name}}</option>
                 </select>
                 <div class="centered">
@@ -39,7 +39,7 @@
             </div>
             <div class="col">
                 <label for="cmbSecondCelestialObject">2<sup>nd</sup> celestial object:</label>
-                <select [(ngModel)]="selectedValueCO2" name="selectedValueCO2" id="cmbSecondCelestialObject" class="form-control" (change)="onCOChange2($event.target.value)">
+                <select class="form-control" formControlName="selectedValueCO2">
                     <option *ngFor="let option of celestialObjects" [value]="option.value">{{option.name}}</option>
                 </select>
                 <div class="centered">
@@ -49,6 +49,7 @@
             </div>
         </div>
         <div class="form-group" class="centered">
+            <p [className]="messageGComparisonStyle">{{gResult}}</p>
             <p [className]="messageComparisonStyle">{{wResult}}</p>
         </div>
     </form>

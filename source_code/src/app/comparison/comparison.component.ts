@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CelestialObjects } from '../celestial-objects';
 import { Gravity } from '../gravity';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-comparison',
@@ -10,139 +11,144 @@ import { Gravity } from '../gravity';
 })
 export class ComparisonComponent implements OnInit {
 
-  public selectedValueCO1:number=3;
-  public selectedValueCO2:number=3;
-  public selectedGUnits:number=0;
-  public selectedWUnits:number=0;
+  wUnits : Array<Object>;
+  gUnits : Array<Object>;
+  celestialObjects : Array<Object>;
 
-  @Input() celestialObjects : Array<Object>;
-  @Input() wUnits : Array<Object>;
-  @Input() gUnits : Array<Object>;
-  @Input() weight:number;
-  @Input() wResult:string = "";
+  comparisonForm: FormGroup;
 
+  wResult:string = "";
   messageComparisonStyle:string="text-primary";
+  gResult:string = "";
+  messageGComparisonStyle:string="text-primary";
   celestialImgFirst:string="./assets/earth.png";
   celestialImgSecond:string="./assets/earth.png";
   celestialStrFirstGravity:string="9.798 m/s²";
   celestialStrSecondGravity:string="9.798 m/s²";
 
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal) { }
 
-  onKeyWeight(event:any) {
-    this.weight = event.target.value;
-    this.calcWeight();
-  }
-
-  onWChange(wValue) {
-    this.calcWeight();
-  }
-
-  onGUChange(guValue) {
-    let g = new Gravity();
-    if (this.selectedGUnits == 0) {
-      // @ts-ignore
-      this.celestialStrFirstGravity = `${this.celestialObjects[guValue].gravity} m/s²`;
-      // @ts-ignore
-      this.celestialStrSecondGravity = `${g.ChangeToMetres(this.celestialObjects[guValue].gravity).toFixed(3)} ft/s²`;
-    }
-    else {
-      // @ts-ignore
-      this.celestialStrFirstGravity = `${this.celestialObjects[guValue].gravity} m/s²`;
-      // @ts-ignore
-      this.celestialStrSecondGravity = `${g.ChangeToMetres(this.celestialObjects[guValue].gravity).toFixed(3)} ft/s²`;
-    }
-    this.calcWeight();
-  }
-
-  onCOChange1(coValue) {
-    // @ts-ignore
-    this.celestialImgFirst=`./assets/${this.celestialObjects[coValue].name.toLowerCase()}.png`;
-
-    let g = new Gravity();
-    if (this.selectedGUnits == 0) {
-      // @ts-ignore
-      this.celestialStrFirstGravity = `${this.celestialObjects[coValue].gravity} m/s²`;
-    }
-    else {
-      // @ts-ignore
-      this.celestialStrFirstGravity = `${g.ChangeToMetres(this.celestialObjects[coValue].gravity).toFixed(3)} ft/s²`;
-    }
-    this.calcWeight();
-  }
-
-  onCOChange2(coValue) {
-    // @ts-ignore
-    this.celestialImgSecond=`./assets/${this.celestialObjects[coValue].name.toLowerCase()}.png`;
-
-    let g = new Gravity();
-
-    if (this.selectedGUnits == 0){
-      // @ts-ignore
-      this.celestialStrSecondGravity = `${this.celestialObjects[coValue].gravity} m/s²`;
-    }
-    else {
-      // @ts-ignore
-      this.celestialStrSecondGravity = `${g.ChangeToMetres(this.celestialObjects[coValue].gravity).toFixed(3)} ft/s²`;
-    }
-    this.calcWeight();
-  }
-
-  calcWeight(){
-    if (this.weight == undefined) {
+  calcWeight(weight:number, selectedValueCO1:number, selectedValueCO2:number, selectedWUnits:number){
+    if (weight == undefined) {
       this.wResult = "";
       return;
     }
 
     let data = new CelestialObjects();
-
-    let weight = this.weight;
     let newWeight = 0;
-    let gravity1 = data.getGravity(this.selectedValueCO1);
-    let gravity2 = data.getGravity(this.selectedValueCO2);
-
+    let gravity1 = data.getGravity(selectedValueCO1);
+    let gravity2 = data.getGravity(selectedValueCO2);
 
     let difference = gravity2 / gravity1;
 
-    if (this.selectedValueCO1 != 3) {
-      var temp = data.getGravity(this.selectedValueCO1) / data.getGravity(3);
-      newWeight = weight * temp;
+    if (selectedValueCO1 != 3) {
+      var temp = gravity1 / data.getGravity(3);
 
+      newWeight = weight * temp;
       newWeight *= difference;
     }
     else {
       newWeight = weight * difference;
     }
-    this.setWeight(weight, parseFloat(newWeight.toFixed(1)));
+    this.setWeight(weight, parseFloat(newWeight.toFixed(1)), selectedValueCO2, selectedWUnits);
   }
 
-  setWeight(initialWeight:number, newWeight:number){
+  setWeight(initialWeight:number, newWeight:number, selectedValueCO2:number, selectedWUnits:number){
     if (newWeight < initialWeight) {
       this.messageComparisonStyle = "text-success";
-
       // @ts-ignore
-      this.wResult = `You are going to be lighter in ${this.celestialObjects[this.selectedValueCO2].name} check it out! ${newWeight} ${this.wUnits[this.selectedWUnits].name}`;
+      this.wResult = `You are going to be lighter in ${this.celestialObjects[selectedValueCO2].name} check it out! ${newWeight} ${this.wUnits[selectedWUnits].name}`;
     }
     else if (newWeight > initialWeight) {
       this.messageComparisonStyle = "text-danger";
       // @ts-ignore
-      this.wResult = `Your weight in ${this.celestialObjects[this.selectedValueCO2].name} is greater check it out! ${newWeight} ${this.wUnits[this.selectedWUnits].name}`;
+      this.wResult = `Your weight in ${this.celestialObjects[selectedValueCO2].name} is greater check it out! ${newWeight} ${this.wUnits[selectedWUnits].name}`;
     }
     else if (newWeight == initialWeight) {
       this.messageComparisonStyle = "text-primary";
-
       this.wResult = "Same weight";
     }
     else {
       this.messageComparisonStyle = "text-primary";
-
       this.wResult = "";
     }
   }
 
+  compareGravity(selectedValueCO1:number, selectedValueCO2:number){
+    if (selectedValueCO1 == selectedValueCO2) {
+      this.gResult = "";
+      return;
+    }
+
+    let data = new CelestialObjects();
+    let gravity1 = data.getGravity(selectedValueCO1);
+    let gravity2 = data.getGravity(selectedValueCO2);
+
+    let gComparison = ((gravity2 * 100) / gravity1).toFixed(0);
+
+    if (gravity1 > gravity2) {
+      this.messageGComparisonStyle = "text-success";
+      // @ts-ignore
+      this.gResult = `The gravity in ${this.celestialObjects[selectedValueCO1].name} is bigger in: ${gComparison}%`;
+    }
+    else {
+      this.messageGComparisonStyle = "text-danger";
+      // @ts-ignore
+      this.gResult = `The gravity in ${this.celestialObjects[selectedValueCO1].name} is smaller in: ${gComparison}%`;
+    }
+  }
+
+  onChanges(): void {
+    this.comparisonForm.valueChanges.subscribe(val => {
+      // @ts-ignore
+      this.celestialImgFirst=`./assets/${this.celestialObjects[val.selectedValueCO1].name.toLowerCase()}.png`;
+
+      // @ts-ignore
+      this.celestialImgSecond=`./assets/${this.celestialObjects[val.selectedValueCO2].name.toLowerCase()}.png`;
+
+      if (val.selectedGUnits == 0) {
+        // @ts-ignore
+        this.celestialStrFirstGravity = `${this.celestialObjects[val.selectedValueCO1].gravity} m/s²`;
+        // @ts-ignore
+        this.celestialStrSecondGravity = `${this.celestialObjects[val.selectedValueCO2].gravity} m/s²`;
+      }
+      else {
+        let g = new Gravity();
+        // @ts-ignore
+        this.celestialStrFirstGravity = `${g.ChangeToFeet(this.celestialObjects[val.selectedValueCO1].gravity).toFixed()} ft/s²`;
+        // @ts-ignore
+        this.celestialStrSecondGravity = `${g.ChangeToFeet(this.celestialObjects[val.selectedValueCO2].gravity).toFixed(3)} ft/s²`;
+      }
+
+      this.compareGravity(parseInt(val.selectedValueCO1), parseInt(val.selectedValueCO2));
+
+      if (val.weight == '') {
+        this.wResult = "";
+      }
+      else {
+        this.calcWeight(parseFloat(val.weight), parseInt(val.selectedValueCO1), parseInt(val.selectedValueCO2), parseInt(val.selectedWUnits));
+      }
+    });
+  }
+
   ngOnInit() {
     this.celestialObjects = new CelestialObjects().getCelestialObjects();
-    
+
+    this.comparisonForm = this.formBuilder.group({
+      weight: '',
+      selectedWUnits: 0,
+      selectedGUnits: 0,
+      selectedValueCO1: 3,
+      selectedValueCO2: 3
+    });
+
+    this.comparisonForm.controls['selectedWUnits'].setValue(0, {onlySelf: true});
+    this.comparisonForm.controls['selectedGUnits'].setValue(0, {onlySelf: true});
+    this.comparisonForm.controls['selectedValueCO1'].setValue(3, {onlySelf: true});
+    this.comparisonForm.controls['selectedValueCO2'].setValue(3, {onlySelf: true});
+
+    this.onChanges();
+
     this.wUnits =
     [
       {

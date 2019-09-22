@@ -17,7 +17,11 @@ export class OsmMapComponent implements OnInit {
 
   @Input() latitude: number;
   @Input() longitude: number;
-  @Input() gravityResult: string = "G";
+
+  imgMarginTop: number;
+  imgMarginLeft: number;
+  mapHeight: number;
+  gravityResult: string = "G";
 
   static map: any;
 
@@ -32,9 +36,10 @@ export class OsmMapComponent implements OnInit {
 
   resizeMap() {
     let mapHeight = document.body.clientHeight - (document.getElementById("titleBar").clientHeight + document.getElementById("footer").clientHeight);
-    document.getElementById("gravityCircle").style.marginTop = `${mapHeight - 89}px`;
-    document.getElementById("gravityCircle").style.marginLeft = `${(document.body.clientWidth / 2) - 89}px`;
-    document.getElementById("map").style.height = `${mapHeight}px`;
+
+    this.imgMarginTop = mapHeight - 89;
+    this.imgMarginLeft = (document.body.clientWidth / 2) - 89;
+    this.mapHeight = mapHeight;
   }
 
   constructor(private service: OsmMessageServiceService){ }
@@ -44,7 +49,7 @@ export class OsmMapComponent implements OnInit {
       let markerIcon = new L.DivIcon({
         className: 'my-div-icon',
         html: `<img style="height:32px;width:23.5px" class="my-div-image" src="assets/Map_pin_icon.svg"/>
-                  <span style='white-space: pre;' class="my-div-span">${new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation).toFixed(4)}m/s²</span>`
+                  <span class="my-div-span">${new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation).toFixed(4)}m/s²</span>`
       });
       new L.marker(loc, { icon: markerIcon }).bindTooltip(`latitude: ${result.elevations[0].lat.toFixed(2)}°, altitude: ${result.elevations[0].elevation}m`).addTo(OsmMapComponent.map);
     });
@@ -97,10 +102,10 @@ export class OsmMapComponent implements OnInit {
   }
 
   dragMarker(event:any) {
-      // @ts-ignore
-      let position = this.getLatLng();
-      // @ts-ignore
-      this.setLatLng(position, {
+    // @ts-ignore
+    let position = this.getLatLng();
+    // @ts-ignore
+    this.setLatLng(position, {
       draggable: 'true'
     }).bindPopup(position).bindTooltip("drag and drop the marker").update();
 
@@ -110,7 +115,7 @@ export class OsmMapComponent implements OnInit {
       this.gravityResult = gResult;
       document.getElementById("lblGravity").innerHTML = `${gResult}`;
       document.getElementById("lblGUnit").innerHTML = `m/s²`;
-   });
+    });
   }
 
   onLocationFound(e) {
@@ -118,7 +123,7 @@ export class OsmMapComponent implements OnInit {
       let markerIcon = new L.DivIcon({
         className: 'my-div-icon',
         html: `<img style="height:32px;width:23.5px" class="my-div-image" src="assets/Map_pin_icon.svg"/>
-                  <span style='white-space: pre;' class="my-div-span">${new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation).toFixed(4)}m/s²</span>`
+                  <span class="my-div-span">${new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation).toFixed(4)}m/s²</span>`
       });
       new L.marker([e.latlng.lat, e.latlng.lng], { icon: markerIcon }).bindTooltip(`latitude: ${result.elevations[0].lat.toFixed(2)}°, altitude: ${result.elevations[0].elevation}m`).addTo(OsmMapComponent.map);
     });
