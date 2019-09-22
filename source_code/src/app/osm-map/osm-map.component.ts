@@ -15,19 +15,16 @@ declare let L;
 
 export class OsmMapComponent implements OnInit {
 
-  @Input() latitude: number;
-  @Input() longitude: number;
-
-  imgMarginTop: number;
-  imgMarginLeft: number;
-  mapHeight: number;
-  gravityResult: string = "G";
-
   static map: any;
 
+  mapHeight: number;
+  imgMarginTop: number;
+  imgMarginLeft: number;
+  gravityResult: string = "G";
   currentLocation: Observable<OsmLocation>;
-
   osmLocationSubject$ = this.service.osmLocationSubject$;
+
+  constructor(private service: OsmMessageServiceService){ }
 
   @HostListener('window:resize')
   onWindowResize() {
@@ -41,9 +38,7 @@ export class OsmMapComponent implements OnInit {
     this.imgMarginLeft = (document.body.clientWidth / 2) - 89;
     this.mapHeight = mapHeight;
   }
-
-  constructor(private service: OsmMessageServiceService){ }
-
+  
   setNewMarker(loc){
     new Gravity().getAltitude(parseFloat(loc[0]),parseFloat(loc[1])).then(function(result){
       let markerIcon = new L.DivIcon({
@@ -65,12 +60,7 @@ export class OsmMapComponent implements OnInit {
 
     let curLocation = [];
     //El Salvador
-    if (this.latitude == -1 && this.longitude == -1) {
-      curLocation = [13.905190, -89.500206];      
-    }
-    else {
-      curLocation = [this.latitude, this.longitude];
-    }
+    curLocation = [13.905190, -89.500206];      
 
     OsmMapComponent.map = L.map('map').setView(curLocation, 4);
 
@@ -97,7 +87,7 @@ export class OsmMapComponent implements OnInit {
 
     OsmMapComponent.map.on('click', e => this.setNewMarker([e.latlng.lat, e.latlng.lng]));
 
-    OsmMapComponent.map.on('locationfound', this.onLocationFound);
+    OsmMapComponent.map.on('locationfound', e => this.setNewMarker([e.latlng.lat, e.latlng.lng]));
     this.resizeMap();
   }
 
@@ -115,17 +105,6 @@ export class OsmMapComponent implements OnInit {
       this.gravityResult = gResult;
       document.getElementById("lblGravity").innerHTML = `${gResult}`;
       document.getElementById("lblGUnit").innerHTML = `m/s²`;
-    });
-  }
-
-  onLocationFound(e) {
-    new Gravity().getAltitude(parseFloat(e.latlng.lat),parseFloat(e.latlng.lng)).then(function(result){
-      let markerIcon = new L.DivIcon({
-        className: 'my-div-icon',
-        html: `<img style="height:32px;width:23.5px" class="my-div-image" src="assets/Map_pin_icon.svg"/>
-                  <span class="my-div-span">${new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation).toFixed(4)}m/s²</span>`
-      });
-      new L.marker([e.latlng.lat, e.latlng.lng], { icon: markerIcon }).bindTooltip(`latitude: ${result.elevations[0].lat.toFixed(2)}°, altitude: ${result.elevations[0].elevation}m`).addTo(OsmMapComponent.map);
     });
   }
 }
