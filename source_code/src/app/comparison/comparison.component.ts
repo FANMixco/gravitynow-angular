@@ -81,20 +81,26 @@ export class ComparisonComponent implements OnInit {
     }
 
     let data = new CelestialObjects();
-    let gravity1 = data.getGravity(selectedValueCO1);
-    let gravity2 = data.getGravity(selectedValueCO2);
 
-    let gComparison = ((gravity2 * 100) / gravity1).toFixed(0);
+    let gPercentage = data.percentageGravity(selectedValueCO1, selectedValueCO2);
 
-    if (gravity1 > gravity2) {
-      this.messageGComparisonStyle = "text-success";
-      // @ts-ignore
-      this.gResult = `The gravity in ${this.celestialObjects[selectedValueCO1].name} is bigger in: ${gComparison}%`;
+    let extra:string = "";
+
+    if (selectedValueCO1 == 3 || selectedValueCO1 == 4 || selectedValueCO1 == 0) {
+        extra = "the ";
     }
-    else {
-      this.messageGComparisonStyle = "text-danger";
-      // @ts-ignore
-      this.gResult = `The gravity in ${this.celestialObjects[selectedValueCO1].name} is smaller in: ${gComparison}%`;
+
+    switch (data.comparedGravity(selectedValueCO1, selectedValueCO2)) {
+        case 0:
+            this.messageGComparisonStyle = "text-success";
+            // @ts-ignore
+            this.gResult = `The gravity in ${extra}${this.celestialObjects[selectedValueCO1].name} is bigger in: ${gPercentage.toFixed(0)}%`;
+            break;
+        case 1:
+            this.messageGComparisonStyle = "text-danger";
+            // @ts-ignore
+            this.gResult = `The gravity in ${extra}${this.celestialObjects[selectedValueCO1].name} is smaller in: ${gPercentage.toFixed(0)}%`;
+            break;
     }
   }
 
