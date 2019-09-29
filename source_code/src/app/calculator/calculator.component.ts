@@ -12,6 +12,7 @@ export class CalculatorComponent implements OnInit {
 
   messageStyle:string="text-primary";
   gResult:string = "";
+  decimalNumbers:string="5";
   calcForm: FormGroup;
   gUnits : Array<Object>;
 
@@ -20,7 +21,7 @@ export class CalculatorComponent implements OnInit {
     
     let g = new Gravity();
 
-    let gravity = parseFloat(g.GetGravity(latitude, altitude, false, selectedGUnits == 0 ? false : true).toFixed(5));
+    let gravity = parseFloat(g.GetGravity(latitude, altitude, false, selectedGUnits == 0 ? false : true).toFixed(parseInt(this.decimalNumbers)));
     switch (gravity) {
       case WrongValues.Latitude:
         this.gResult = `Incorrect latitude, it must be between -90° and +90°`;
@@ -41,6 +42,7 @@ export class CalculatorComponent implements OnInit {
 
   onChanges(): void {
     this.calcForm.valueChanges.subscribe(val => {
+      this.decimalNumbers = val.rangeDec;
       if (val.latitude == '' || val.altitude == '') {
         this.gResult = "";
       }
@@ -54,7 +56,8 @@ export class CalculatorComponent implements OnInit {
     this.calcForm = this.formBuilder.group({
       latitude: '',
       altitude: '',
-      gUnits: 0
+      gUnits: 0,
+      rangeDec: 5
     });
 
     this.calcForm.controls['gUnits'].setValue(0, {onlySelf: true});
