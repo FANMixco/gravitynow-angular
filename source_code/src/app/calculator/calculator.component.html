@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-primary-title">Calculator</h4>
+    <h4 class="modal-title" id="modal-primary-title" translate>Calculator</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -7,21 +7,21 @@
 <div class="modal-body">
     <form [formGroup]="calcForm">
         <div class="form-group">
-            <label for="txtLatitude">Latitude:</label>
-            <input type="number" class="form-control" placeholder="Enter latitude" min="-90" max="90" formControlName="latitude">
+            <label for="txtLatitude" translate>LatitudeFull</label>
+            <input type="number" class="form-control" placeholder="{{enterLat}}" min="-90" max="90" formControlName="latitude">
         </div>
         <div class="form-group">
-            <label for="txtAltitude">Altitude:</label>
-            <input type="number" class="form-control" placeholder="Enter altitude" formControlName="altitude">
+            <label for="txtAltitude" translate>AltitudeFull</label>
+            <input type="number" class="form-control" placeholder="{{enterAlt}}" formControlName="altitude">
         </div>
         <div class="form-group">
-            <label for="cmbUnits">Units:</label>
+            <label for="cmbUnits" translate>Units</label>
             <select class="form-control" formControlName="gUnits">
                 <option *ngFor="let option of gUnits" [value]="option.value">{{option.name}}</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="rangeDec">Number of decimals: {{decimalNumbers}}</label>
+            <label for="rangeDec"><span translate>DecimalPlaces</span> {{decimalNumbers}}</label>
             <input formControlName="rangeDec" value="5" type="range" class="custom-range" id="customRange1" min="1" max="10" step="1">
         </div>
         <div class="form-group" class="centered">

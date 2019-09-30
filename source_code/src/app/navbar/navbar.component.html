@@ -7,16 +7,16 @@
     <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" (click)="openCalc()">Calculator</a>
+            <a class="nav-link" (click)="openCalc()" translate>Calculator</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="openComparison()">Comparison</a>
+            <a class="nav-link" (click)="openComparison()" translate>Comparison</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="openHelp()">Help</a>
+            <a class="nav-link" (click)="openHelp()" translate>Help</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="openAbout()">About</a>
+            <a class="nav-link" (click)="openAbout()" translate>About</a>
           </li>
         </ul>
         <app-navbar-search (onItemSelected)="setLocation($event)"></app-navbar-search>

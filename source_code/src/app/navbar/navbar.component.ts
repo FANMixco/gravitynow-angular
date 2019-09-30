@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OsmMessageServiceService } from '../osm-message-service.service';
-import { OsmLocation } from '../osm-location';
+import { OsmMessageServiceService } from '../services/osm-message-service.service';
+import { OsmLocation } from '../classes/osm-location';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AboutComponent } from '../about/about.component';
 import { HelpComponent } from '../help/help.component';

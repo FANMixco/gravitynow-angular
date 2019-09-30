@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { CelestialObjects } from '../celestial-objects';
-import { Gravity } from '../gravity';
+import { CelestialObjects } from '../classes/celestial-objects';
+import { Gravity } from '../classes/gravity';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-comparison',
@@ -17,16 +18,17 @@ export class ComparisonComponent implements OnInit {
 
   comparisonForm: FormGroup;
 
+  translations: any;
   wResult:string = "";
   messageComparisonStyle:string="text-primary";
   gResult:string = "";
   messageGComparisonStyle:string="text-primary";
-  celestialImgFirst:string="./assets/earth.png";
-  celestialImgSecond:string="./assets/earth.png";
+  celestialImgFirst:string="./assets/img/earth.png";
+  celestialImgSecond:string="./assets/img/earth.png";
   celestialStrFirstGravity:string="9.798 m/s²";
   celestialStrSecondGravity:string="9.798 m/s²";
 
-  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal) { }
+  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal, private translateService: TranslateService) { }
 
   calcWeight(weight:number, selectedValueCO1:number, selectedValueCO2:number, selectedWUnits:number){
     if (weight == undefined) {
@@ -107,10 +109,10 @@ export class ComparisonComponent implements OnInit {
   onChanges(): void {
     this.comparisonForm.valueChanges.subscribe(val => {
       // @ts-ignore
-      this.celestialImgFirst=`./assets/${this.celestialObjects[val.selectedValueCO1].name.toLowerCase()}.png`;
+      this.celestialImgFirst=`./assets/img/${this.celestialObjects[val.selectedValueCO1].name.toLowerCase()}.png`;
 
       // @ts-ignore
-      this.celestialImgSecond=`./assets/${this.celestialObjects[val.selectedValueCO2].name.toLowerCase()}.png`;
+      this.celestialImgSecond=`./assets/img/${this.celestialObjects[val.selectedValueCO2].name.toLowerCase()}.png`;
 
       if (val.selectedGUnits == 0) {
         // @ts-ignore
@@ -139,6 +141,7 @@ export class ComparisonComponent implements OnInit {
 
   ngOnInit() {
     this.celestialObjects = new CelestialObjects().getCelestialObjects();
+    this.translations=this.translateService.store.translations[`${this.translateService.defaultLang}`];
 
     this.comparisonForm = this.formBuilder.group({
       weight: '',

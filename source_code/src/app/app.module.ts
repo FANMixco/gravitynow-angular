@@ -9,13 +9,19 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NavbarSearchComponent } from './navbar-search/navbar-search.component';
 import { FooterComponent } from './footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
-import { OsmMessageServiceService } from './osm-message-service.service';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { OsmMessageServiceService } from './services/osm-message-service.service';
 import { AboutComponent } from './about/about.component';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { ComparisonComponent } from './comparison/comparison.component';
 import { HelpComponent } from './help/help.component';
 import { ToastComponent } from './toast/toast.component';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+
+export function translateHttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -36,7 +42,15 @@ import { ToastComponent } from './toast/toast.component';
     NgbModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: translateHttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   entryComponents: [
     AboutComponent,
@@ -47,4 +61,17 @@ import { ToastComponent } from './toast/toast.component';
   providers: [OsmMessageServiceService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  availableLng = ['en', 'es'];
+
+  constructor(private translateService: TranslateService) {
+    let tmpLng = 'en';
+
+    let currentLng = window.navigator.language.substring(0,2);
+
+    if (this.availableLng.includes(currentLng))
+      tmpLng = currentLng;
+
+    translateService.setDefaultLang(tmpLng);
+  }
+}

@@ -1,8 +1,9 @@
 import { Component, OnInit, HostListener, Input, Injectable } from '@angular/core';
-import { Gravity } from '../gravity';
-import { OsmMessageServiceService } from '../osm-message-service.service';
-import { OsmLocation } from '../osm-location';
+import { Gravity } from '../classes/gravity';
+import { OsmMessageServiceService } from '../services/osm-message-service.service';
+import { OsmLocation } from '../classes/osm-location';
 import { Observable } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 // declare variable
 declare let L;
@@ -24,7 +25,7 @@ export class OsmMapComponent implements OnInit {
   currentLocation: Observable<OsmLocation>;
   osmLocationSubject$ = this.service.osmLocationSubject$;
 
-  constructor(private service: OsmMessageServiceService){ }
+  constructor(private service: OsmMessageServiceService, private translateService: TranslateService){ }
 
   @HostListener('window:resize')
   onWindowResize() {
@@ -39,21 +40,21 @@ export class OsmMapComponent implements OnInit {
     this.mapHeight = mapHeight;
   }
   
-  setNewMarker(loc){
+  setNewMarker(loc, translations){
     new Gravity().getAltitude(parseFloat(loc[0]),parseFloat(loc[1])).then(function(result){
       let markerIcon = new L.DivIcon({
         className: 'my-div-icon',
-        html: `<img style="height:32px;width:23.5px" class="my-div-image" src="assets/Map_pin_icon.svg"/>
+        html: `<img style="height:32px;width:23.5px" class="my-div-image" src="assets/img/Map_pin_icon.svg"/>
                   <span class="my-div-span">${new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation).toFixed(4)}m/s²</span>`
       });
-      new L.marker(loc, { icon: markerIcon }).bindTooltip(`latitude: ${result.elevations[0].lat.toFixed(2)}°, altitude: ${result.elevations[0].elevation}m`).addTo(OsmMapComponent.map);
+      new L.marker(loc, { icon: markerIcon }).bindTooltip(`${translations.Latitude}: ${result.elevations[0].lat.toFixed(2)}°, ${translations.Longitude}: ${result.elevations[0].lon.toFixed(2)}°, ${translations.Altitude}: ${result.elevations[0].elevation}m`).addTo(OsmMapComponent.map);
     });
   }
 
   ngOnInit() {
     this.service.osmLocationSubject$.subscribe(value => { 
       if (value.lat != undefined && value.lon != undefined){
-        this.setNewMarker([value.lat,value.lon]); 
+        this.setNewMarker([value.lat,value.lon], this.translateService.store.translations[`${this.translateService.defaultLang}`]); 
         OsmMapComponent.map.setView([value.lat,value.lon], 4);
       }
     });
@@ -72,7 +73,7 @@ export class OsmMapComponent implements OnInit {
     OsmMapComponent.map.attributionControl.setPrefix(false);
 
     let markerIcon = L.icon({
-      iconUrl: 'assets/Map_pin_icon_green.svg',
+      iconUrl: 'assets/img/Map_pin_icon_green.svg',
       iconSize: [94 / 3, 128 / 3], // size of the icon
     });
 
@@ -85,9 +86,9 @@ export class OsmMapComponent implements OnInit {
 
     OsmMapComponent.map.addLayer(marker);
 
-    OsmMapComponent.map.on('click', e => this.setNewMarker([e.latlng.lat, e.latlng.lng]));
+    OsmMapComponent.map.on('click', e => this.setNewMarker([e.latlng.lat, e.latlng.lng], this.translateService.store.translations[`${this.translateService.defaultLang}`]));
 
-    OsmMapComponent.map.on('locationfound', e => this.setNewMarker([e.latlng.lat, e.latlng.lng]));
+    OsmMapComponent.map.on('locationfound', e => this.setNewMarker([e.latlng.lat, e.latlng.lng], this.translateService.store.translations[`${this.translateService.defaultLang}`]));
     this.resizeMap();
   }
 
@@ -97,7 +98,7 @@ export class OsmMapComponent implements OnInit {
     // @ts-ignore
     this.setLatLng(position, {
       draggable: 'true'
-    }).bindPopup(position).bindTooltip("drag and drop the marker").update();
+    }).bindPopup(position).update();
 
     new Gravity().getAltitude(position.lat,position.lng).then(function(result){
       return new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation).toFixed(2);

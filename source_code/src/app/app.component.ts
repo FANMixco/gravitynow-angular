@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { ToastService } from './toast.service';
-import { LocalStorage } from './local-storage';
+import { ToastService } from './services/toast.service';
+import { LocalStorage } from './classes/local-storage';
 
 @Component({
   selector: 'app-root',
