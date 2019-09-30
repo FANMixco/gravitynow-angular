@@ -7,11 +7,11 @@
 <div class="modal-body">
     <form [formGroup]="calcForm">
         <div class="form-group">
-            <label for="txtLatitude" translate>LatitudeFull</label>
+            <label for="txtLatitude"><span translate>LatitudeFull</span>:</label>
             <input type="number" class="form-control" placeholder="{{enterLat}}" min="-90" max="90" formControlName="latitude">
         </div>
         <div class="form-group">
-            <label for="txtAltitude" translate>AltitudeFull</label>
+            <label for="txtAltitude"><span translate>AltitudeFull</span>:</label>
             <input type="number" class="form-control" placeholder="{{enterAlt}}" formControlName="altitude">
         </div>
         <div class="form-group">

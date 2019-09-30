@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-
-import { ToastService } from './services/toast.service';
 import { LocalStorage } from './classes/local-storage';
+import { ToastService } from './services/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +9,10 @@ import { LocalStorage } from './classes/local-storage';
 })
 export class AppComponent {
   title = 'GNow';
+
   localStorage:LocalStorage = new LocalStorage();
 
-  constructor(public toastService: ToastService) {
+  constructor(public toastService: ToastService){
     this.getFirstRun();
   }
 
