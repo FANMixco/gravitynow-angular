@@ -17,7 +17,8 @@ export class NavbarComponent implements OnInit {
   @Input() currentLocation: any;
   navbarOpen = false;
 
-  constructor(private service: OsmMessageServiceService, private modalService: NgbModal){ }
+  constructor(private service: OsmMessageServiceService, private modalService: NgbModal){
+  }
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;

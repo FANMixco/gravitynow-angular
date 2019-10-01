@@ -57,7 +57,7 @@ export class CalculatorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.translations = this.translateService.store.translations[`${this.translateService.defaultLang}`];
+    this.translations=this.translateService.store.translations[`${this.translateService.defaultLang}`];
     this.enterAlt = this.translations.EnterAltitude;
     this.enterLat = this.translations.EnterLatitude;
     this.calcForm = this.formBuilder.group({

@@ -9,11 +9,11 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-8">
-                    <label for="txtWeight"><span translate>YourWeight</span>&nbsp;<b><span translate>ThePlus</span>&nbsp;<span translate>Earth</span></b>:</label>
+                    <label for="txtWeight">Your weight on <b>the Earth</b>:</label>
                     <input min="1" type="number" class="form-control" placeholder="Weight" formControlName="weight">
                 </div>
                 <div class="col-4">
-                    <label for="cmbUnitsWeight"><span translate>Units</span></label>
+                    <label for="cmbUnitsWeight">Units:</label>
                     <select class="form-control" formControlName="selectedWUnits">
                         <option *ngFor="let option of wUnits" [value]="option.value">{{option.name}}</option>
                     </select>
@@ -21,14 +21,14 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="cmbGUnits" translate>GUnits</label>
+            <label for="cmbGUnits">Gravity units:</label>
             <select class="form-control" formControlName="selectedGUnits">
                 <option *ngFor="let option of gUnits" [value]="option.value">{{option.name}}</option>
             </select>
         </div>
         <div class="row">
             <div class="col">
-                <label for="cmbFirstCelestialObject">1<sup translate>First</sup>&nbsp;<span translate>Celestial</span>:</label>
+                <label for="cmbFirstCelestialObject">1<sup>st</sup> celestial object:</label>
                 <select class="form-control" formControlName="selectedValueCO1">
                     <option *ngFor="let option of celestialObjects" [value]="option.value">{{option.name}}</option>
                 </select>
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="col">
-                <label for="cmbSecondCelestialObject">2<sup translate>Second</sup>&nbsp;<span translate>Celestial</span>:</label>
+                <label for="cmbSecondCelestialObject">2<sup>nd</sup> celestial object:</label>
                 <select class="form-control" formControlName="selectedValueCO2">
                     <option *ngFor="let option of celestialObjects" [value]="option.value">{{option.name}}</option>
                 </select>
