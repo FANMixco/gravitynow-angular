@@ -4,7 +4,6 @@ import { CelestialObjects } from '../classes/celestial-objects';
 import { Gravity } from '../classes/gravity';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { StringFormatter } from '../classes/string-formatter';
 
 @Component({
   selector: 'app-comparison',
@@ -60,12 +59,16 @@ export class ComparisonComponent implements OnInit {
     if (newWeight < initialWeight) {
       this.messageComparisonStyle = "text-success";
       // @ts-ignore
-      this.wResult = StringFormatter.format(this.translations.LightWeight, [this.celestialObjects[selectedValueCO2].name, newWeight, this.wUnits[selectedWUnits].name]);
+      this.wResult = `You are going to be lighter in ${this.celestialObjects[selectedValueCO2].name} check it out! ${newWeight} ${this.wUnits[selectedWUnits].name}`;
     }
     else if (newWeight > initialWeight) {
       this.messageComparisonStyle = "text-danger";
       // @ts-ignore
-      this.wResult = StringFormatter.format(this.translations.HeavyWeight, [this.celestialObjects[selectedValueCO2].name, newWeight, this.wUnits[selectedWUnits].name]);
+      this.wResult = `Your weight in ${this.celestialObjects[selectedValueCO2].name} is greater check it out! ${newWeight} ${this.wUnits[selectedWUnits].name}`;
+    }
+    else if (newWeight == initialWeight) {
+      this.messageComparisonStyle = "text-primary";
+      this.wResult = "Same weight";
     }
     else {
       this.messageComparisonStyle = "text-primary";
@@ -93,12 +96,12 @@ export class ComparisonComponent implements OnInit {
         case 0:
             this.messageGComparisonStyle = "text-success";
             // @ts-ignore
-            this.gResult = StringFormatter.format(this.translations.GravBigger, [extra, this.celestialObjects[selectedValueCO1].name, gPercentage.toFixed(0)]);
+            this.gResult = `The gravity in ${extra}${this.celestialObjects[selectedValueCO1].name} is bigger in: ${gPercentage.toFixed(0)}%`;
             break;
         case 1:
             this.messageGComparisonStyle = "text-danger";
             // @ts-ignore
-            this.gResult = StringFormatter.format(this.translations.GravSmaller, [extra, this.celestialObjects[selectedValueCO1].name, gPercentage.toFixed(0)]);
+            this.gResult = `The gravity in ${extra}${this.celestialObjects[selectedValueCO1].name} is smaller in: ${gPercentage.toFixed(0)}%`;
             break;
     }
   }
