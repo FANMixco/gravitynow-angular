@@ -101,6 +101,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+@ngx-translate/core
+MIT
+
+@ngx-translate/http-loader
+MIT
+
 bootstrap
 MIT
 The MIT License (MIT)
