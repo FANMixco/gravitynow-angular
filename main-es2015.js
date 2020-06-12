@@ -258,7 +258,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function translateHttpLoaderFactory(http) {
-    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_17__["TranslateHttpLoader"](http);
+    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_17__["TranslateHttpLoader"](http, './assets/i18n/', '.json');
 }
 class AppModule {
     constructor(translateService) {
