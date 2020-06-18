@@ -1,1 +1,1 @@
-<input id="app-navbar-search" type="text" class="form-control" (selectItem)="selectedItem($event)" [class.is-invalid]="searchFailed" [(ngModel)]="model" [ngbTypeahead]="search" placeholder="Search …" />
+<input id="app-navbar-search" type="text" class="form-control" (selectItem)="selectedItem($event)" [class.is-invalid]="searchFailed" [(ngModel)]="model" [ngbTypeahead]="search" placeholder="{{'LocationSearch' | translate}}" />
