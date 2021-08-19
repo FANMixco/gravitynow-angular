@@ -10,18 +10,10 @@ https://2014.spaceappschallenge.org/awards/#globalawards
 
 [![preview][1]][1]
 
-You can download our apps:
+### Download the Apps for Android and Windows 10+!
 
-**Play Store:**
-
-https://play.google.com/store/apps/details?id=tk.supernova.gnow
-
-**Windows Store:**
-
-https://www.microsoft.com/en-us/p/gravity-now/9nblgggzjlp5
-
-**Apps Source Codes:**
-
-https://bitbucket.org/account/user/supernovaic/projects/GNOW
+|  App  |Play Store|Galaxy Store|Microsoft Store|Amazon Appstore|Huawei AppGallery|
+|:----------|:------------:|:------------:|:------------:|:------------:|:------------:|
+|**Gravity Now!**|[![Gravity Now!](https://raw.githubusercontent.com/FANMixco/federiconavarrete/master/img/stores_badges/google_play_micro.png)](https://bit.ly/3rv7vS5)|[![Gravity Now!](https://raw.githubusercontent.com/FANMixco/federiconavarrete/master/img/stores_badges/galaxy_micro.png)](https://galaxy.store/gnow)|[![Gravity Now!](https://raw.githubusercontent.com/FANMixco/federiconavarrete/master/img/stores_badges/microsoft_micro.png)](https://bit.ly/36ZaRTW)|[![Gravity Now!](https://raw.githubusercontent.com/FANMixco/federiconavarrete/master/img/stores_badges/amazon_micro.png)](https://amzn.to/3y2egwV)|[![Gravity Now!](https://raw.githubusercontent.com/FANMixco/federiconavarrete/master/img/stores_badges/huawei_micro.png)](https://bit.ly/3iBkjly)|
 
   [1]: https://i.stack.imgur.com/PEhIg.gif
