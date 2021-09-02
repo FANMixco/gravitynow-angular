@@ -1,8 +1,8 @@
-<app-navbar></app-navbar>
+<app-navbar [hidden]="!status"></app-navbar>
 
 <app-osm-map></app-osm-map>
 
-<app-footer></app-footer>
+<app-footer [hidden]="!status"></app-footer>
 
 <app-toasts></app-toasts>
 

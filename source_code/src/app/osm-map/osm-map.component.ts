@@ -4,6 +4,7 @@ import { OsmMessageServiceService } from '../services/osm-message-service.servic
 import { OsmLocation } from '../classes/osm-location';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 
 // declare variable
 declare let L;
@@ -24,8 +25,13 @@ export class OsmMapComponent implements OnInit {
   gravityResult: string = "G";
   currentLocation: Observable<OsmLocation>;
   osmLocationSubject$ = this.service.osmLocationSubject$;
+  status: boolean;
 
-  constructor(private service: OsmMessageServiceService, private translateService: TranslateService){ }
+  constructor(private service: OsmMessageServiceService, private translateService: TranslateService, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      this.status = params['isApp'] == "true" ? false : true;
+    });
+  }
 
   @HostListener('window:resize')
   onWindowResize() {
@@ -33,7 +39,7 @@ export class OsmMapComponent implements OnInit {
   }
 
   resizeMap() {
-    let mapHeight = document.body.clientHeight - (document.getElementById("titleBar").clientHeight + document.getElementById("footer").clientHeight);
+    let mapHeight = (!this.status) ? document.body.clientHeight - (document.getElementById("titleBar").clientHeight + document.getElementById("footer").clientHeight) : document.body.clientHeight;
 
     this.imgMarginTop = mapHeight - 89;
     this.imgMarginLeft = (document.body.clientWidth / 2) - 89;

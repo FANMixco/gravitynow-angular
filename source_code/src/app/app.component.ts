@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { ToastService } from './services/toast.service';
 import { LocalStorage } from './classes/local-storage';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +12,14 @@ import { LocalStorage } from './classes/local-storage';
 export class AppComponent {
   title = 'GNow';
   localStorage:LocalStorage = new LocalStorage();
+  status: boolean;
 
-  constructor(public toastService: ToastService) {
+  constructor(public toastService: ToastService, private route: ActivatedRoute) {
     this.getFirstRun();
+
+    this.route.queryParams.subscribe(params => {
+      this.status = params['isApp'] == "true" ? false : true;
+    });
   }
 
   getFirstRun() {
