@@ -25,13 +25,9 @@ export class OsmMapComponent implements OnInit {
   gravityResult: string = "G";
   currentLocation: Observable<OsmLocation>;
   osmLocationSubject$ = this.service.osmLocationSubject$;
-  status: boolean;
+  status: boolean = false;
 
-  constructor(private service: OsmMessageServiceService, private translateService: TranslateService, private route: ActivatedRoute) {
-    this.route.queryParams.subscribe(params => {
-      this.status = params['isApp'] == "true" ? false : true;
-    });
-  }
+  constructor(private service: OsmMessageServiceService, private translateService: TranslateService, private route: ActivatedRoute) { }
 
   @HostListener('window:resize')
   onWindowResize() {
@@ -58,6 +54,12 @@ export class OsmMapComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params['isApp']) {
+        this.status = params['isApp'] == "true" ? true : false;
+      }
+    });
+
     this.service.osmLocationSubject$.subscribe(value => { 
       if (value.lat != undefined && value.lon != undefined){
         this.setNewMarker([value.lat,value.lon], this.translateService.store.translations[`${this.translateService.defaultLang}`]); 
