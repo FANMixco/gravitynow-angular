@@ -13,12 +13,14 @@ export class AppComponent {
   title = 'GNow';
   localStorage:LocalStorage = new LocalStorage();
   status: boolean;
+  noMessage: boolean;
 
   constructor(public toastService: ToastService, private route: ActivatedRoute) {
     this.getFirstRun();
 
     this.route.queryParams.subscribe(params => {
       this.status = params['isApp'] == "true" ? false : true;
+      this.noMessage = params['noMessage'] == "true" ? false : true;
     });
   }
 

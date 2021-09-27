@@ -16,7 +16,7 @@ export class Gravity {
     return jsonResult;
   }
 
-  public GetGravity(lat : number, alt: number, isMap: boolean = true, isImperial:boolean =false):number {
+  public GetGravity(lat : number, alt: number, isMap: boolean = true, isImperial:boolean = false):number {
     if (!isMap) {
       if (lat < -90 || lat > 90) {
         return WrongValues.Latitude;

@@ -4,6 +4,6 @@
 
 <app-footer [hidden]="!status"></app-footer>
 
-<app-toasts></app-toasts>
+<app-toasts [hidden]="!noMessage"></app-toasts>
 
 <router-outlet></router-outlet>
