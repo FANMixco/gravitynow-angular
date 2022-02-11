@@ -17,6 +17,7 @@ You can download our apps:
 [![Gravity Now!](https://raw.githubusercontent.com/FANMixco/federiconavarrete/master/img/stores_badges/google_play_micro.png)](https://bit.ly/3rv7vS5)|[![Gravity Now!](https://raw.githubusercontent.com/FANMixco/federiconavarrete/master/img/stores_badges/galaxy_micro.png)](https://galaxy.store/gnow)|[![Gravity Now!](https://raw.githubusercontent.com/FANMixco/federiconavarrete/master/img/stores_badges/microsoft_micro.png)](https://bit.ly/36ZaRTW)|[![Gravity Now!](https://raw.githubusercontent.com/FANMixco/federiconavarrete/master/img/stores_badges/amazon_micro.png)](https://amzn.to/3y2egwV)|[![Gravity Now!](https://raw.githubusercontent.com/FANMixco/federiconavarrete/master/img/stores_badges/huawei_micro.png)](https://bit.ly/3iBkjly)|
 
 _They are also available in **Xiaomi GetApps** and **OPPO App Market**._
+
 **Apps Source Codes:**
 
 https://bitbucket.org/account/user/supernovaic/projects/GNOW
