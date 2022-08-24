@@ -131,6 +131,9 @@
           }
         }
       }
-    }},
-  "defaultProject": "GravityNow"
+    }
+  },
+  "cli": {
+    "analytics": "fb726203-9c66-4e54-8296-6e0d369627fd"
+  }
 }

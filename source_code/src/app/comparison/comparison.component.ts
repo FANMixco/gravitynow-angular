@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CelestialObjects } from '../classes/celestial-objects';
 import { Gravity } from '../classes/gravity';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -16,7 +16,7 @@ export class ComparisonComponent implements OnInit {
   gUnits : Array<Object>;
   celestialObjects : Array<Object>;
 
-  comparisonForm: FormGroup;
+  comparisonForm: UntypedFormGroup;
 
   translations: any;
   wResult:string = "";
@@ -28,7 +28,7 @@ export class ComparisonComponent implements OnInit {
   celestialStrFirstGravity:string="9.798 m/s²";
   celestialStrSecondGravity:string="9.798 m/s²";
 
-  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal, private translateService: TranslateService) { }
+  constructor(private formBuilder: UntypedFormBuilder, public activeModal: NgbActiveModal, private translateService: TranslateService) { }
 
   calcWeight(weight:number, selectedValueCO1:number, selectedValueCO2:number, selectedWUnits:number){
     if (weight == undefined) {
