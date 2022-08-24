@@ -24,42 +24,36 @@ export function translateHttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    OsmMapComponent,
-    NavbarComponent,
-    NavbarSearchComponent,
-    FooterComponent,
-    AboutComponent,
-    CalculatorComponent,
-    ComparisonComponent,
-    HelpComponent,
-    ToastComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: translateHttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
-  ],
-  entryComponents: [
-    AboutComponent,
-    CalculatorComponent,
-    ComparisonComponent,
-    HelpComponent
-  ],
-  providers: [OsmMessageServiceService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        OsmMapComponent,
+        NavbarComponent,
+        NavbarSearchComponent,
+        FooterComponent,
+        AboutComponent,
+        CalculatorComponent,
+        ComparisonComponent,
+        HelpComponent,
+        ToastComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: translateHttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
+    ],
+    providers: [OsmMessageServiceService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { 
   availableLng = ['en', 'es'];

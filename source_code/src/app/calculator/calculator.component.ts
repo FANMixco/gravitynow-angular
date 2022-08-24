@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { WrongValues, Gravity } from '../classes/gravity';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -16,7 +16,7 @@ export class CalculatorComponent implements OnInit {
   messageStyle:string="text-primary";
   gResult:string = "";
   decimalNumbers:string="5";
-  calcForm: FormGroup;
+  calcForm: UntypedFormGroup;
   translations: any;
   gUnits: Array<Object>;
 
@@ -42,7 +42,7 @@ export class CalculatorComponent implements OnInit {
     }
   }
 
-  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal, private translateService: TranslateService) { }
+  constructor(private formBuilder: UntypedFormBuilder, public activeModal: NgbActiveModal, private translateService: TranslateService) { }
 
   onChanges(): void {
     this.calcForm.valueChanges.subscribe(val => {
