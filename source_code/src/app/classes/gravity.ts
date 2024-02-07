@@ -10,7 +10,7 @@ export class Gravity {
   private readonly FOOT = 3.2808399;
 
   public async getAltitude(lat:number, lng:number) {
-    const response = await fetch(`https://elevation-api.io/api/elevation?points=(${lat},${lng})&key=iijkws66Y5FIa99ZoEpa56pb25v6mo`);
+    const response = await fetch(`https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lng}`);
     const jsonResult = await response.json(); //extract JSON from the http response
 
     return jsonResult;

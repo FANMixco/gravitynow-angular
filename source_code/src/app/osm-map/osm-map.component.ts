@@ -69,7 +69,7 @@ export class OsmMapComponent implements OnInit {
               let isImperial = isMetric ? false : true;
 
               new Gravity().getAltitude(this.newLoc[0], this.newLoc[1]).then(function(result){
-                return new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation, true, isImperial).toFixed(2);
+                return new Gravity().GetGravity(result.results[0].latitude, result.results[0].elevation, true, isImperial).toFixed(2);
               }).then(gResult =>{
                 this.gravityResult = gResult;
                 document.getElementById("lblGravity").innerHTML = `${gResult}`;
@@ -135,9 +135,9 @@ export class OsmMapComponent implements OnInit {
     let markerIcon = new L.DivIcon({
       className: 'my-div-icon',
       html: `<img style="height:32px;width:23.5px" class="my-div-image" src="assets/img/Map_pin_icon.svg"/>
-                <span class="my-div-span">${new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation, true, isImperial).toFixed(4)}${this.defaultUnits}</span>`
+                <span class="my-div-span">${new Gravity().GetGravity(result.results[0].latitude, result.results[0].elevation, true, isImperial).toFixed(4)}${this.defaultUnits}</span>`
     });
-    new L.marker(loc, { icon: markerIcon }).bindTooltip(`${translations.Latitude}: ${result.elevations[0].lat.toFixed(2)}°, ${translations.Longitude}: ${result.elevations[0].lon.toFixed(2)}°, ${translations.Altitude}: ${result.elevations[0].elevation}m`).addTo(OsmMapComponent.map);
+    new L.marker(loc, { icon: markerIcon }).bindTooltip(`${translations.Latitude}: ${result.results[0].latitude.toFixed(2)}°, ${translations.Longitude}: ${result.results[0].longitude.toFixed(2)}°, ${translations.Altitude}: ${result.results[0].elevation}m`).addTo(OsmMapComponent.map);
   }
 
   ngOnInit() { }
@@ -153,7 +153,7 @@ export class OsmMapComponent implements OnInit {
     let isImperial = localStorage.getItem('isMetric') == "true" ? false : true;
 
     let result = await new Gravity().getAltitude(position.lat, position.lng);
-    let gResult = new Gravity().GetGravity(result.elevations[0].lat, result.elevations[0].elevation, true, isImperial).toFixed(2);
+    let gResult = new Gravity().GetGravity(result.results[0].latitude, result.results[0].elevation, true, isImperial).toFixed(2);
 
     document.getElementById("lblGravity").innerHTML = `${gResult}`;
     document.getElementById("lblGUnit").innerHTML = localStorage.getItem('defaultUnits');
