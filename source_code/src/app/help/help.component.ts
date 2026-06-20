@@ -1,9 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { Component } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-help',
+  standalone: true,
+  imports: [
+    NgbModule,
+    TranslateModule
+  ],
   templateUrl: './help.component.html',
   styleUrls: ['./help.component.css']
 })

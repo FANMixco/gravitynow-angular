@@ -6,7 +6,7 @@ describe('OsmMessageServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: OsmMessageServiceService = TestBed.get(OsmMessageServiceService);
+    const service: OsmMessageServiceService = TestBed.inject(OsmMessageServiceService);
     expect(service).toBeTruthy();
   });
 });

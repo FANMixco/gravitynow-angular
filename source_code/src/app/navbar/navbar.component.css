@@ -1,0 +1,35 @@
+.navbar {
+    min-height: 56px;
+}
+
+.navbar-brand {
+    margin-right: 2rem;
+}
+
+.nav-link {
+    cursor: pointer;
+}
+
+.navbar-search {
+    flex: 0 0 auto;
+}
+
+@media (max-width: 991.98px) {
+    .navbar {
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+    }
+
+    .navbar-brand {
+        margin-right: 0;
+    }
+
+    .navbar-collapse {
+        padding-top: .5rem;
+    }
+
+    .navbar-search {
+        width: 100%;
+        margin-top: .5rem;
+    }
+}

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import "rxjs/add/observable/of";
+import { BehaviorSubject } from 'rxjs';
 import { OsmLocation } from '../classes/osm-location';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root'

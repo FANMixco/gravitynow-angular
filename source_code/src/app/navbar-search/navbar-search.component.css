@@ -1,1 +1,13 @@
-.form-control { width: 250px; display: inline; }
+:host {
+    display: block;
+}
+
+.form-control {
+    width: 250px;
+}
+
+@media (max-width: 991.98px) {
+    .form-control {
+        width: 100%;
+    }
+}

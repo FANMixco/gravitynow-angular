@@ -1,5 +1,5 @@
 export class CelestialObjects{
-    private celestialObjectsArray=[];
+    private celestialObjectsArray: any[] = [];
 
     constructor(){
         this.celestialObjectsArray = [

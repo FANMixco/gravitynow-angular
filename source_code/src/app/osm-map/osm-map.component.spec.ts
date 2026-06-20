@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OsmMapComponent } from './osm-map.component';
 
@@ -6,7 +6,7 @@ describe('OsmMapComponent', () => {
   let component: OsmMapComponent;
   let fixture: ComponentFixture<OsmMapComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ OsmMapComponent ]
     })

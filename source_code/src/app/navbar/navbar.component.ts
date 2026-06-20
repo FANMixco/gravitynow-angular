@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import type { OnInit } from '@angular/core';
 import { OsmMessageServiceService } from '../services/osm-message-service.service';
 import { OsmLocation } from '../classes/osm-location';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +10,7 @@ import { ComparisonComponent } from '../comparison/comparison.component';
 
 @Component({
   selector: 'app-navbar',
+  standalone: false,
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
