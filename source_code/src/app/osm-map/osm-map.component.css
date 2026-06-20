@@ -16,11 +16,10 @@
 }
 
 .topCircle {
-    height: 90px;
+    height: 180px;
     width: 180px;
     background:#212529!important;
-    border-top-left-radius: 180px;
-    border-top-right-radius: 180px;
+    border-radius: 50%;
     margin: auto;
     position: absolute;
     z-index: 400;
@@ -70,7 +69,7 @@
 
 .mapbox .overlay {
     position: absolute;
-    bottom: calc(var(--footer-offset, 0px) - 1px);
+    bottom: calc(var(--footer-offset, 0px) - 90px);
     left: 50%;
     transform: translateX(-50%);
     pointer-events: none;

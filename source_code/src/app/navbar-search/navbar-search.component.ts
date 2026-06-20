@@ -1,10 +1,10 @@
 import { Component, Injectable, Input, Output, EventEmitter } from '@angular/core';
 import type { OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, tap, switchMap } from 'rxjs/operators';
 
-const OSM_URL = "https://nominatim.openstreetmap.org/search/{0}?format=json&email=fanmixco@gmail.com";
+const OSM_URL = "https://nominatim.openstreetmap.org/search";
 
 @Injectable()
 export class OSMService {
@@ -17,8 +17,13 @@ export class OSMService {
       return of([]);
     }
 
+    const params = new HttpParams()
+      .set('q', term)
+      .set('format', 'json')
+      .set('email', 'fanmixco@gmail.com');
+
     return this.http
-      .get(OSM_URL.replace('{0}', term)).pipe(
+      .get(OSM_URL, { params }).pipe(
         map((response: any) => {
           this.currentSearch = response;
           return response.map((a: any) => a.display_name);
