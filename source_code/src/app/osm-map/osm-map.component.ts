@@ -23,6 +23,7 @@ export class OsmMapComponent implements OnInit, AfterViewInit, OnDestroy {
   gravityResult: string = "G";
   defaultUnits: string = "m/s²";
   mapHeight: number = 0;
+  footerHeight: number = 0;
   imgMarginTop: number = 0;
   imgMarginLeft: number = 0;
   currentLocation!: Observable<OsmLocation>;
@@ -169,9 +170,10 @@ export class OsmMapComponent implements OnInit, AfterViewInit, OnDestroy {
     const titleBar = document.getElementById("titleBar");
     const footer = document.getElementById("footer");
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-    const chromeHeight = this.status ? 0 : ((titleBar?.clientHeight || 0) + (footer?.clientHeight || 0));
+    const chromeHeight = this.status ? 0 : (titleBar?.clientHeight || 0);
     const mapHeight = viewportHeight - chromeHeight;
 
+    this.footerHeight = this.status ? 0 : (footer?.clientHeight || 0);
     this.imgMarginTop = mapHeight - 89;
     this.imgMarginLeft = (document.body.clientWidth / 2) - 89;
     this.mapHeight = mapHeight;

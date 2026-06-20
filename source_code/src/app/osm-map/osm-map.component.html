@@ -1,4 +1,4 @@
-<div class="mapbox">
+<div class="mapbox" [style.--footer-offset.px]="footerHeight">
     <div id="map" [style.height.px]="mapHeight" class="row-fluid some"></div>
     @if (isMapLoading) {
         <div class="map-loading-overlay">

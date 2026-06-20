@@ -28,6 +28,7 @@
 }
 
 .mapbox {
+    overflow: hidden;
     position: relative;
 }
 
@@ -69,7 +70,7 @@
 
 .mapbox .overlay {
     position: absolute;
-    bottom: 0;
+    bottom: calc(var(--footer-offset, 0px) - 1px);
     left: 50%;
     transform: translateX(-50%);
     pointer-events: none;
