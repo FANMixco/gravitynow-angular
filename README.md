@@ -2,7 +2,7 @@ Gravity Now!
 ==========
 It is an educational platform that aims to be the # 1 tool for teaching the physical sciences related to gravity.
 
-Gravity Now! uses an advanced mapping and real-time processing for interactive calculation of gravity at any point on the planet. Furthermore, Gravity Now! explains briefly and easily understandable way, the theoretical basis used for the calculations shown in the system. Thus, the theory and practice by promoting education and motivation-people-in complements.
+Gravity Now! uses advanced mapping and real-time processing for interactive calculation of gravity at any point on the planet. Furthermore, Gravity Now! explains briefly and in an easily understandable way the theoretical basis used for the calculations shown in the system. Thus, theory and practice by promoting education and motivation of people in complements.
 
 **Top 5 of The Most Inspiring Projects of NASA SpaceApps Challenge 2014**
 
@@ -20,7 +20,7 @@ _They are also available in **Xiaomi GetApps** and **OPPO App Market**._
 
 **Apps Source Codes:**
 
-https://bitbucket.org/account/user/supernovaic/projects/GNOW
+https://bitbucket.org/supernovaic/workspace/repositories/?project=%7B0a98332b-1b3f-458e-8d67-624c45e605f3%7D
 
   [1]: https://i.sstatic.net/PEhIg.gif
 
