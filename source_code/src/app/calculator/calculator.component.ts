@@ -1,24 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import type { OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { WrongValues, Gravity } from '../classes/gravity';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { ReactiveFormsModule, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-calculator',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule
+  ],
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.css']
 })
 export class CalculatorComponent implements OnInit {
 
-  enterLat:string;
-  enterAlt:string;
-  messageStyle:string="text-primary";
-  gResult:string = "";
-  decimalNumbers:string="5";
-  calcForm: UntypedFormGroup;
+  enterLat: string = "";
+  enterAlt: string = "";
+  messageStyle: string = "text-primary";
+  gResult: string = "";
+  decimalNumbers: string = "5";
+  calcForm!: UntypedFormGroup;
   translations: any;
-  gUnits: Array<Object>;
+  gUnits: any[] = [];
 
   calcGravity(latitude:number, altitude:number, selectedGUnits:number) {
     this.messageStyle ="text-danger";

@@ -1,14 +1,37 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { CalculatorComponent } from './calculator.component';
 
 describe('CalculatorComponent', () => {
   let component: CalculatorComponent;
   let fixture: ComponentFixture<CalculatorComponent>;
+  const translateServiceStub = {
+    defaultLang: 'en',
+    store: {
+      translations: {
+        en: {
+          EnterAltitude: 'Enter altitude',
+          EnterLatitude: 'Enter latitude',
+          ErrorLat: 'Invalid latitude',
+          ErrorEverest: 'Above Everest',
+          ErrorDeadSea: 'Below Dead Sea'
+        }
+      }
+    }
+  };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CalculatorComponent ]
+      imports: [
+        CalculatorComponent,
+        TranslateModule.forRoot()
+      ],
+      providers: [
+        NgbActiveModal,
+        { provide: TranslateService, useValue: translateServiceStub }
+      ]
     })
     .compileComponents();
   }));

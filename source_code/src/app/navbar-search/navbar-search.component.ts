@@ -1,14 +1,15 @@
-import { Component, OnInit, Injectable, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Injectable, Input, Output, EventEmitter } from '@angular/core';
+import type { OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, tap, switchMap } from 'rxjs/operators';
 
 const OSM_URL = "https://nominatim.openstreetmap.org/search/{0}?format=json&email=fanmixco@gmail.com";
 
-let currentSearch;
-
 @Injectable()
 export class OSMService {
+  currentSearch: any[] = [];
+
   constructor(private http: HttpClient) {}
 
   search(term: string) {
@@ -18,10 +19,9 @@ export class OSMService {
 
     return this.http
       .get(OSM_URL.replace('{0}', term)).pipe(
-        map(response => {
-          currentSearch = response;
-          // @ts-ignore
-          return response.map(a => a.display_name);
+        map((response: any) => {
+          this.currentSearch = response;
+          return response.map((a: any) => a.display_name);
         })
       );
   }
@@ -29,6 +29,7 @@ export class OSMService {
 
 @Component({
   selector: 'app-navbar-search',
+  standalone: false,
   providers: [OSMService],
   templateUrl: './navbar-search.component.html',
   styleUrls: ['./navbar-search.component.css']
@@ -42,8 +43,8 @@ export class NavbarSearchComponent implements OnInit {
 
   constructor(private _service: OSMService) {}
 
-  selectedItem(item){
-    this.onItemSelected.emit(currentSearch.filter(x=>x.display_name == item.item)[0]);
+  selectedItem(item: any){
+    this.onItemSelected.emit(this._service.currentSearch.filter((x: any) => x.display_name == item.item)[0]);
   }
   
   search = (text$: Observable<string>) =>
@@ -51,9 +52,11 @@ export class NavbarSearchComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       tap(() => this.searching = true),
-      switchMap(term =>
+      switchMap((term: string) =>
         this._service.search(term).pipe(
-          tap(() => this.searchFailed = false),
+          tap(() => {
+            this.searchFailed = false;
+          }),
           catchError(() => {
             this.searchFailed = true;
             return of([]);

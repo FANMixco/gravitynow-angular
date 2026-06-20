@@ -1,36 +1,42 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import type { OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CelestialObjects } from '../classes/celestial-objects';
 import { Gravity } from '../classes/gravity';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { ReactiveFormsModule, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-comparison',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule
+  ],
   templateUrl: './comparison.component.html',
   styleUrls: ['./comparison.component.css']
 })
 export class ComparisonComponent implements OnInit {
 
-  wUnits : Array<Object>;
-  gUnits : Array<Object>;
-  celestialObjects : Array<Object>;
+  wUnits: any[] = [];
+  gUnits: any[] = [];
+  celestialObjects: any[] = [];
 
-  comparisonForm: UntypedFormGroup;
+  comparisonForm!: UntypedFormGroup;
 
   translations: any;
-  wResult:string = "";
-  messageComparisonStyle:string="text-primary";
-  gResult:string = "";
-  messageGComparisonStyle:string="text-primary";
-  celestialImgFirst:string="./assets/img/earth.png";
-  celestialImgSecond:string="./assets/img/earth.png";
-  celestialStrFirstGravity:string="9.798 m/s²";
-  celestialStrSecondGravity:string="9.798 m/s²";
+  wResult: string = "";
+  messageComparisonStyle: string = "text-primary";
+  gResult: string = "";
+  messageGComparisonStyle: string = "text-primary";
+  celestialImgFirst: string = "./assets/img/earth.png";
+  celestialImgSecond: string = "./assets/img/earth.png";
+  celestialStrFirstGravity: string = "9.798 m/s²";
+  celestialStrSecondGravity: string = "9.798 m/s²";
 
   constructor(private formBuilder: UntypedFormBuilder, public activeModal: NgbActiveModal, private translateService: TranslateService) { }
 
-  calcWeight(weight:number, selectedValueCO1:number, selectedValueCO2:number, selectedWUnits:number){
+  calcWeight(weight: number, selectedValueCO1: number, selectedValueCO2: number, selectedWUnits: number){
     if (weight == undefined) {
       this.wResult = "";
       return;

@@ -6,13 +6,14 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
+  standalone: false,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'GNow';
-  localStorage:LocalStorage = new LocalStorage();
-  status: boolean;
+  localStorage: LocalStorage = new LocalStorage();
+  status: boolean = true;
 
   constructor(public toastService: ToastService, private route: ActivatedRoute) {
     this.getFirstRun();

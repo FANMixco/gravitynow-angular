@@ -1,11 +1,11 @@
-<nav id="titleBar" class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav id="titleBar" class="navbar navbar-expand-lg bg-dark navbar-dark px-3">
     <a class="navbar-brand" href="#">Gravity Now!</a>
-    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav me-auto">
           <li class="nav-item">
             <a class="nav-link" (click)="openCalc()" translate>Calculator</a>
           </li>
@@ -19,6 +19,6 @@
             <a class="nav-link" (click)="openAbout()" translate>About</a>
           </li>
         </ul>
-        <app-navbar-search (onItemSelected)="setLocation($event)"></app-navbar-search>
+        <app-navbar-search class="navbar-search" (onItemSelected)="setLocation($event)"></app-navbar-search>
     </div>
 </nav>

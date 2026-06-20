@@ -1,30 +1,30 @@
 <div class="modal-header">
     <h4 class="modal-title" id="modal-primary-title" translate>Calculator</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close ms-auto" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
     <form [formGroup]="calcForm">
-        <div class="form-group">
+        <div class="mb-3">
             <label for="txtLatitude" translate>LatitudeFull</label>
             <input type="number" class="form-control" placeholder="{{enterLat}}" min="-90" max="90" formControlName="latitude">
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <label for="txtAltitude" translate>AltitudeFull</label>
             <input type="number" class="form-control" placeholder="{{enterAlt}}" formControlName="altitude">
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <label for="cmbUnits" translate>Units</label>
-            <select class="form-control" formControlName="gUnits">
-                <option *ngFor="let option of gUnits" [value]="option.value">{{option.name}}</option>
+            <select class="form-select" formControlName="gUnits">
+                @for (option of gUnits; track option.value) {
+                    <option [value]="option.value">{{option.name}}</option>
+                }
             </select>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <label for="rangeDec"><span translate>DecimalPlaces</span> {{decimalNumbers}}</label>
-            <input formControlName="rangeDec" value="5" type="range" class="custom-range" id="customRange1" min="1" max="10" step="1">
+            <input formControlName="rangeDec" value="5" type="range" class="form-range" id="customRange1" min="1" max="10" step="1">
         </div>
-        <div class="form-group" class="centered">
+        <div class="mb-3 centered">
             <p [className]="messageStyle">{{gResult}}</p>
         </div>
     </form>

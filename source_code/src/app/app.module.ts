@@ -29,11 +29,6 @@ export function translateHttpLoaderFactory(http: HttpClient) {
         OsmMapComponent,
         NavbarComponent,
         NavbarSearchComponent,
-        FooterComponent,
-        AboutComponent,
-        CalculatorComponent,
-        ComparisonComponent,
-        HelpComponent,
         ToastComponent
     ],
     imports: [
@@ -43,7 +38,11 @@ export function translateHttpLoaderFactory(http: HttpClient) {
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        HttpClientModule,
+        FooterComponent,
+        AboutComponent,
+        CalculatorComponent,
+        ComparisonComponent,
+        HelpComponent,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

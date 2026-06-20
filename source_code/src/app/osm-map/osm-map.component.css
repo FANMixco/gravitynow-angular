@@ -18,7 +18,7 @@
 .topCircle {
     height: 90px;
     width: 180px;
-    background:#343a40!important;
+    background:#212529!important;
     border-top-left-radius: 180px;
     border-top-right-radius: 180px;
     margin: auto;
@@ -31,10 +31,47 @@
     position: relative;
 }
 
+.map-loading-overlay {
+    align-items: center;
+    background: rgba(222, 226, 230, .76);
+    bottom: 0;
+    color: #212529;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 450;
+}
+
+.map-loading-spinner {
+    animation: map-loading-spin .75s linear infinite;
+    border: 4px solid rgba(33, 37, 41, .18);
+    border-top-color: #212529;
+    border-radius: 50%;
+    height: 42px;
+    width: 42px;
+}
+
+.map-loading-text {
+    font-size: 16px;
+}
+
+@keyframes map-loading-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .mapbox .overlay {
     position: absolute;
-    top: 0;
-    left: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     pointer-events: none;
 }
 
